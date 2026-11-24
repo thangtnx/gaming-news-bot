@@ -1,0 +1,24 @@
+[bot]
+zalo_api_base = "https://bot-api.zaloplatforms.com"
+zalo_poll_timeout_secs = 30
+state_path = "data/state.json"
+
+[intervals]
+giftcodes_secs = 3600
+news_secs = 1800
+
+[genshin]
+fandom_api_url = "https://genshin-impact.fandom.com/api.php?action=query&prop=revisions&titles=Promotional_Code&rvprop=content&rvslots=main&format=json"
+allowed_servers = ["SEA", "G", "A"]
+
+[messages]
+welcome = "Chào bạn! Bot cập nhật Giftcode Genshin Impact (máy chủ Asia).\nCác lệnh:\n/subscribe - Đăng ký nhận thông báo code mới mỗi giờ\n/unsubscribe - Hủy đăng ký\n/codes - Xem danh sách code Asia đang còn hiệu lực"
+subscribed = "Đã đăng ký nhận thông báo code Genshin Impact (Asia). Bot sẽ kiểm tra mỗi 1 tiếng và gửi ngay khi có code mới!"
+already_subscribed = "Bạn đã đăng ký nhận thông báo trước đó rồi."
+unsubscribed = "Đã hủy đăng ký nhận thông báo code mới."
+not_subscribed = "Bạn chưa đăng ký nhận thông báo."
+no_active_codes = "Hiện tại chưa có mã code Asia nào còn hiệu lực."
+fetch_error = "Không thể lấy dữ liệu từ Fandom lúc này, vui lòng thử lại sau."
+new_codes_header = "🎁 Code Genshin Impact mới (Server Asia):"
+active_codes_header = "📜 Danh sách code Genshin Impact còn hiệu lực (Server Asia):"
+redeem_url = "https://genshin.hoyoverse.com/gift"
