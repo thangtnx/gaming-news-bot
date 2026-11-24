@@ -3,6 +3,29 @@ zalo_api_base = "https://bot-api.zaloplatforms.com"
 zalo_poll_timeout_secs = 30
 state_path = "data/state.json"
 
+[discord]
+api_base = "https://discord.com/api/v10"
+max_message_chars = 2000
+reconnect_delay_secs = 5
+embed_color = 5793266
+max_codes_per_embed = 10
+welcome = """
+# 🎮 Gaming News Bot
+-# Cập nhật Giftcode & tin tức game tự động
+
+### 📌 Lệnh chung (tất cả game)
+- `/subscribe` *(`/sub`)* — Đăng ký nhận thông báo mới
+- `/unsubscribe` *(`/unsub`)* — Hủy đăng ký nhận thông báo
+- `/codes` — Xem giftcode đang còn hiệu lực
+
+### 🎯 Lệnh theo từng game
+- **Genshin Impact (`gi`)**
+  - `/gi codes` — Xem code Genshin còn hiệu lực
+  - `/gi subscribe` — Đăng ký nhận code Genshin
+  - `/gi unsubscribe` — Hủy đăng ký Genshin
+
+-# Mẹo: Gõ `/` trong khung chat để chọn nhanh lệnh có sẵn."""
+
 [intervals]
 giftcodes_secs = 3600
 news_secs = 1800
@@ -12,13 +35,14 @@ fandom_api_url = "https://genshin-impact.fandom.com/api.php?action=query&prop=re
 allowed_servers = ["SEA", "G", "A"]
 
 [messages]
-welcome = "Chào bạn! Bot cập nhật Giftcode Genshin Impact (máy chủ Asia).\nCác lệnh:\n/subscribe - Đăng ký nhận thông báo code mới mỗi giờ\n/unsubscribe - Hủy đăng ký\n/codes - Xem danh sách code Asia đang còn hiệu lực"
-subscribed = "Đã đăng ký nhận thông báo code Genshin Impact (Asia). Bot sẽ kiểm tra mỗi 1 tiếng và gửi ngay khi có code mới!"
+welcome = "Chào bạn! Bot cập nhật Giftcode và tin tức game tự động.\nLệnh chung (tất cả game):\n/subscribe (/sub) - Đăng ký nhận thông báo mới\n/unsubscribe (/unsub) - Hủy đăng ký\n/codes - Xem giftcode đang còn hiệu lực\n\nLệnh theo game (ví dụ Genshin Impact = gi):\n/gi:codes - Xem code Genshin Impact (Discord: /gi codes)\n/gi:subscribe (/gi:sub) - Đăng ký nhận code Genshin (Discord: /gi subscribe)\n/gi:unsubscribe (/gi:unsub) - Hủy đăng ký Genshin (Discord: /gi unsubscribe)"
+subscribed = "Đã đăng ký nhận thông báo giftcode & tin tức game mới. Bot sẽ kiểm tra định kỳ và gửi ngay khi có cập nhật!"
 already_subscribed = "Bạn đã đăng ký nhận thông báo trước đó rồi."
-unsubscribed = "Đã hủy đăng ký nhận thông báo code mới."
+unsubscribed = "Đã hủy đăng ký nhận thông báo mới."
 not_subscribed = "Bạn chưa đăng ký nhận thông báo."
-no_active_codes = "Hiện tại chưa có mã code Asia nào còn hiệu lực."
-fetch_error = "Không thể lấy dữ liệu từ Fandom lúc này, vui lòng thử lại sau."
-new_codes_header = "🎁 Code Genshin Impact mới (Server Asia):"
-active_codes_header = "📜 Danh sách code Genshin Impact còn hiệu lực (Server Asia):"
+no_active_codes = "Hiện tại chưa có mã code nào còn hiệu lực."
+fetch_error = "Không thể lấy dữ liệu lúc này, vui lòng thử lại sau."
+unknown_game = "Không tìm thấy game này. Dùng /help để xem các lệnh đang hỗ trợ."
+new_codes_header = "🎁 Giftcode mới:"
+active_codes_header = "📜 Danh sách giftcode còn hiệu lực:"
 redeem_url = "https://genshin.hoyoverse.com/gift"

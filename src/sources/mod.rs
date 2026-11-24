@@ -39,6 +39,7 @@ impl CodeItem {
 
 /// Abstraction for any game news or promotional code source.
 pub trait NewsSource: Send + Sync {
+    fn game_id(&self) -> &str;
     fn name(&self) -> &str;
     fn kind(&self) -> NotificationKind;
     fn fetch_active_items(&self) -> Result<Vec<CodeItem>>;
@@ -49,6 +50,12 @@ pub enum GameSource {
 }
 
 impl NewsSource for GameSource {
+    fn game_id(&self) -> &str {
+        match self {
+            Self::Genshin(s) => s.game_id(),
+        }
+    }
+
     fn name(&self) -> &str {
         match self {
             Self::Genshin(s) => s.name(),

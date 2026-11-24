@@ -13,4 +13,5 @@ serde_json = "1"
 toml = "0.8"
 tracing = "0.1"
 tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+tungstenite = { version = "0.24", features = ["native-tls"] }
 ureq = { version = "2", default-features = false, features = ["json", "native-tls"] }

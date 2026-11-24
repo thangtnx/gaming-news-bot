@@ -29,6 +29,10 @@ impl GenshinFandomSource {
 }
 
 impl NewsSource for GenshinFandomSource {
+    fn game_id(&self) -> &str {
+        "gi"
+    }
+
     fn name(&self) -> &str {
         "Genshin Impact"
     }

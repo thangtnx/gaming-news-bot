@@ -152,6 +152,10 @@ impl ZaloChannel {
 }
 
 impl ChatChannel for ZaloChannel {
+    fn name(&self) -> &'static str {
+        "zalo"
+    }
+
     fn poll_messages(&self) -> Result<Vec<IncomingMessage>> {
         let body: GetUpdatesResponse = self
             .agent
@@ -189,11 +193,16 @@ impl ChatChannel for ZaloChannel {
         Ok(updates
             .into_iter()
             .filter_map(|u| u.message)
-            .map(|msg| IncomingMessage {
-                is_group: msg.chat.chat_type.eq_ignore_ascii_case("GROUP")
-                    || msg.chat.id.starts_with("zgr-"),
-                chat_id: msg.chat.id,
-                text: msg.text,
+            .map(|msg| {
+                let is_group = msg.chat.chat_type.eq_ignore_ascii_case("GROUP")
+                    || msg.chat.id.starts_with("zgr-");
+                IncomingMessage {
+                    chat_id: msg.chat.id,
+                    is_group,
+                    auto_subscribe: is_group,
+                    text: msg.text,
+                    reply_context: None,
+                }
             })
             .collect())
     }

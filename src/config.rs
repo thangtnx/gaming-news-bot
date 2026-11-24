@@ -8,6 +8,8 @@ use std::time::Duration;
 #[derive(Debug, Clone, Deserialize)]
 pub struct AppConfig {
     pub bot: BotConfig,
+    #[serde(default)]
+    pub discord: DiscordConfig,
     pub intervals: IntervalsConfig,
     pub genshin: GenshinConfig,
     pub messages: MessagesConfig,
@@ -18,6 +20,47 @@ pub struct BotConfig {
     pub zalo_api_base: String,
     pub zalo_poll_timeout_secs: u64,
     pub state_path: String,
+}
+
+const DEFAULT_DISCORD_WELCOME: &str = "\
+# 🎮 Gaming News Bot
+-# Cập nhật Giftcode & tin tức game tự động
+
+### 📌 Lệnh chung (tất cả game)
+- `/subscribe` *(`/sub`)* — Đăng ký nhận thông báo mới
+- `/unsubscribe` *(`/unsub`)* — Hủy đăng ký nhận thông báo
+- `/codes` — Xem giftcode đang còn hiệu lực
+
+### 🎯 Lệnh theo từng game
+- **Genshin Impact (`gi`)**
+  - `/gi codes` — Xem code Genshin còn hiệu lực
+  - `/gi subscribe` — Đăng ký nhận code Genshin
+  - `/gi unsubscribe` — Hủy đăng ký Genshin
+
+-# Mẹo: Gõ `/` trong khung chat để chọn nhanh lệnh có sẵn.";
+
+#[derive(Debug, Clone, Deserialize)]
+#[serde(default)]
+pub struct DiscordConfig {
+    pub api_base: String,
+    pub max_message_chars: usize,
+    pub reconnect_delay_secs: u64,
+    pub embed_color: u32,
+    pub max_codes_per_embed: usize,
+    pub welcome: String,
+}
+
+impl Default for DiscordConfig {
+    fn default() -> Self {
+        Self {
+            api_base: "https://discord.com/api/v10".to_string(),
+            max_message_chars: 2000,
+            reconnect_delay_secs: 5,
+            embed_color: 5_793_266,
+            max_codes_per_embed: 10,
+            welcome: DEFAULT_DISCORD_WELCOME.to_string(),
+        }
+    }
 }
 
 #[derive(Debug, Clone, Deserialize)]
@@ -51,9 +94,15 @@ pub struct MessagesConfig {
     pub not_subscribed: String,
     pub no_active_codes: String,
     pub fetch_error: String,
+    #[serde(default = "default_unknown_game")]
+    pub unknown_game: String,
     pub new_codes_header: String,
     pub active_codes_header: String,
     pub redeem_url: String,
+}
+
+fn default_unknown_game() -> String {
+    "Không tìm thấy game này. Dùng /help để xem các lệnh đang hỗ trợ.".to_string()
 }
 
 impl AppConfig {
